@@ -3,23 +3,29 @@ use std::{fs::File, io::prelude::*};
 use anyhow::Context;
 use clap::{App, Arg, SubCommand};
 
-fn read_input_file(input_path: String) -> Result<String, anyhow::Error> {
-    let mut file = File::open(input_path).context("Error opening input file '{}'", input_path)?;
+fn read_input_file(input_path: &str) -> Result<String, anyhow::Error> {
+    let mut file =
+        File::open(input_path).context(format!("Error opening input file '{}'", input_path))?;
     let mut contents = String::new();
-    file.read_to_string(&mut contents).context("Error reading file '{}'", input_path)?;
+    file.read_to_string(&mut contents)
+        .context(format!("Error reading file '{}'", input_path))?;
     Ok(contents)
 }
 
 fn parse_input(input: &str) -> Result<(), anyhow::Error> {
-   Ok(())
-}
-
-fn part_1() {
     unimplemented!()
 }
 
-//fn part_2() {
-//
+fn parse_example_input(input: &str) -> Result<(), anyhow::Error> {
+    unimplemented!()
+}
+
+fn part_1() -> Result<(), anyhow::Error> {
+    unimplemented!()
+}
+
+//fn part_2(passes: Vec<Pass>) -> Result<u64, anyhow::Error> {
+//    unimplemented!()
 //}
 
 fn main() -> Result<(), anyhow::Error> {
@@ -74,7 +80,11 @@ fn main() -> Result<(), anyhow::Error> {
         if matches.is_present("input") {
             println!(
                 ": {}",
-                part_1(parse_input(matches.value_of("input").context("Error no value supplied for --input")?)?)
+                ex1(parse_example_input(
+                    matches
+                        .value_of("input")
+                        .context("Error no value supplied for --input")?
+                ))?
             );
         }
     }
@@ -82,10 +92,14 @@ fn main() -> Result<(), anyhow::Error> {
     // {{crate_name}} part_1
     if let Some(ref matches) = matches.subcommand_matches("part_1") {
         if matches.is_present("input") {
-            let total_inputs = read_input_file(matches.value_of("input").context("Error no value supplied for --input")?)?;
-            let parsed_input = parse_input(total_inputs);
+            let total_inputs = read_input_file(
+                matches
+                    .value_of("input")
+                    .context("Error no value supplied for --input")?,
+            )?;
+            let parsed_input = parse_input(&total_inputs);
 
-            println!(": {}", part_1(parsed_input));
+            println!(": {}", part_1(parsed_input)?);
         }
     }
 /*
@@ -94,7 +108,11 @@ fn main() -> Result<(), anyhow::Error> {
         if matches.is_present("input") {
             println!(
                 ": {}",
-                part_2(parse_input(matches.value_of("input").context("Error no value supplied for --input")?)?)
+                part_2(parse_input(
+                    matches
+                        .value_of("input")
+                        .context("Error no value supplied for --input")?
+                ))?
             );
         }
     }
@@ -102,10 +120,14 @@ fn main() -> Result<(), anyhow::Error> {
     // {{crate_name}} part_2
     if let Some(ref matches) = matches.subcommand_matches("part_2") {
         if matches.is_present("input") {
-            let total_inputs = read_input_file(matches.value_of("input").context("Error no value supplied for --input")?)?;
-            let parsed_input = parse_input(total_inputs);
+            let total_inputs = read_input_file(
+                matches
+                    .value_of("input")
+                    .context("Error no value supplied for --input")?,
+            )?;
+            let parsed_input = parse_input(&total_inputs);
 
-            println!(": {}", part_2(parsed_input));
+            println!(": {}", part_2(parsed_input)?);
         }
     }
 */
