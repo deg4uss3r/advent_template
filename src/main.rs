@@ -16,20 +16,16 @@ fn parse_input(input: &str) -> Result<(), anyhow::Error> {
     unimplemented!()
 }
 
-fn parse_example_input(input: &str) -> Result<(), anyhow::Error> {
-    unimplemented!()
-}
-
 fn part_1() -> Result<(), anyhow::Error> {
     unimplemented!()
 }
 
-//fn part_2(passes: Vec<Pass>) -> Result<u64, anyhow::Error> {
+//fn part_2() -> Result<(), anyhow::Error> {
 //    unimplemented!()
 //}
 
 fn main() -> Result<(), anyhow::Error> {
-    let matches = App::new("AoC 2020: {{crate_name}}")
+    let matches = App::new("AoC 2021: {{crate_name}}")
         .version("1.0")
         .author("{{authors}}")
         .about("Solution to AoC {{crate_name}}")
@@ -40,7 +36,7 @@ fn main() -> Result<(), anyhow::Error> {
                     Arg::with_name("input")
                         .short("i")
                         .long("input")
-                        .help("puzzle input on the cmdline")
+                        .help("/path/to/puzzle.example")
                         .takes_value(true),
                 ),
         )
@@ -49,7 +45,7 @@ fn main() -> Result<(), anyhow::Error> {
                 Arg::with_name("input")
                     .short("i")
                     .long("input")
-                    .help("puzzle input as a text file")
+                    .help("/path/to/puzzle.input")
                     .takes_value(true),
             ),
         )
@@ -60,7 +56,7 @@ fn main() -> Result<(), anyhow::Error> {
                     Arg::with_name("input")
                         .short("i")
                         .long("input")
-                        .help("puzzle input on the cmdline")
+                        .help("/path/to/puzzle.example")
                         .takes_value(true),
                 ),
         )
@@ -69,7 +65,7 @@ fn main() -> Result<(), anyhow::Error> {
                 Arg::with_name("input")
                     .short("i")
                     .long("input")
-                    .help("puzzle input as a text file")
+                    .help("/path/to/puzzle.input")
                     .takes_value(true),
             ),
         )
@@ -78,14 +74,13 @@ fn main() -> Result<(), anyhow::Error> {
     //{{crate_name}} part_1 example
     if let Some(ref matches) = matches.subcommand_matches("ex1") {
         if matches.is_present("input") {
-            println!(
-                ": {}",
-                ex1(parse_example_input(
-                    matches
-                        .value_of("input")
-                        .context("Error no value supplied for --input")?
-                ))?
-            );
+            let total_inputs = read_input_file(
+                matches
+                    .value_of("input")
+                    .context("Error no value supplied for --input")?,
+            )?;
+
+            println!("{{crate_name}} part 1 example: {}", part_1(parse_input(&total_inputs)?)?);
         }
     }
 
@@ -97,23 +92,21 @@ fn main() -> Result<(), anyhow::Error> {
                     .value_of("input")
                     .context("Error no value supplied for --input")?,
             )?;
-            let parsed_input = parse_input(&total_inputs);
 
-            println!(": {}", part_1(parsed_input)?);
+            println!("{{crate_name}} part 1: {}", part_1(parse_input(&total_inputs)?)?);
         }
     }
 /*
     // {{crate_name}} part_2 example
     if let Some(ref matches) = matches.subcommand_matches("ex2") {
         if matches.is_present("input") {
-            println!(
-                ": {}",
-                part_2(parse_input(
-                    matches
-                        .value_of("input")
-                        .context("Error no value supplied for --input")?
-                ))?
-            );
+         let total_inputs = read_input_file(
+                matches
+                    .value_of("input")
+                    .context("Error no value supplied for --input")?,
+            )?;
+
+            println!("{{crate_name}} part 2 example: {}", part_2(parse_input(&total_inputs)?)?);
         }
     }
 
@@ -125,9 +118,8 @@ fn main() -> Result<(), anyhow::Error> {
                     .value_of("input")
                     .context("Error no value supplied for --input")?,
             )?;
-            let parsed_input = parse_input(&total_inputs);
 
-            println!(": {}", part_2(parsed_input)?);
+            println!("{{crate_name}} part 2: {}", part_2(parse_input(&total_inputs)?)?);
         }
     }
 */
