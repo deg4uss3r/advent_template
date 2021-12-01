@@ -30,62 +30,29 @@ fn main() -> Result<(), anyhow::Error> {
         .author("{{authors}}")
         .about("Solution to AoC {{crate_name}}")
         .subcommand(
-            SubCommand::with_name("ex1")
-                .about("{{crate_name}} part_1 example")
-                .arg(
-                    Arg::with_name("input")
-                        .short("i")
-                        .long("input")
-                        .help("/path/to/puzzle.example")
-                        .takes_value(true),
-                ),
-        )
-        .subcommand(
-            SubCommand::with_name("part_1").about("{{crate_name}} part_1").arg(
+            SubCommand::with_name("part 1").about("{{crate_name}} part 1").arg(
                 Arg::with_name("input")
                     .short("i")
                     .long("input")
                     .help("/path/to/puzzle.input")
+                    .required(true)
                     .takes_value(true),
             ),
         )
         .subcommand(
-            SubCommand::with_name("ex2")
-                .about("{{crate_name}} part_2 example")
-                .arg(
-                    Arg::with_name("input")
-                        .short("i")
-                        .long("input")
-                        .help("/path/to/puzzle.example")
-                        .takes_value(true),
-                ),
-        )
-        .subcommand(
-            SubCommand::with_name("part_2").about("{{crate_name}} part_2").arg(
+            SubCommand::with_name("part2").about("{{crate_name}} part 2").arg(
                 Arg::with_name("input")
                     .short("i")
                     .long("input")
                     .help("/path/to/puzzle.input")
+                    .required(true)
                     .takes_value(true),
             ),
         )
         .get_matches();
 
-    //{{crate_name}} part_1 example
-    if let Some(ref matches) = matches.subcommand_matches("ex1") {
-        if matches.is_present("input") {
-            let total_inputs = read_input_file(
-                matches
-                    .value_of("input")
-                    .context("Error no value supplied for --input")?,
-            )?;
-
-            println!("{{crate_name}} part 1 example: {}", part_1(parse_input(&total_inputs)?)?);
-        }
-    }
-
     // {{crate_name}} part_1
-    if let Some(ref matches) = matches.subcommand_matches("part_1") {
+    if let Some(ref matches) = matches.subcommand_matches("part1") {
         if matches.is_present("input") {
             let total_inputs = read_input_file(
                 matches
@@ -97,21 +64,8 @@ fn main() -> Result<(), anyhow::Error> {
         }
     }
 /*
-    // {{crate_name}} part_2 example
-    if let Some(ref matches) = matches.subcommand_matches("ex2") {
-        if matches.is_present("input") {
-         let total_inputs = read_input_file(
-                matches
-                    .value_of("input")
-                    .context("Error no value supplied for --input")?,
-            )?;
-
-            println!("{{crate_name}} part 2 example: {}", part_2(parse_input(&total_inputs)?)?);
-        }
-    }
-
     // {{crate_name}} part_2
-    if let Some(ref matches) = matches.subcommand_matches("part_2") {
+    if let Some(ref matches) = matches.subcommand_matches("part2") {
         if matches.is_present("input") {
             let total_inputs = read_input_file(
                 matches
