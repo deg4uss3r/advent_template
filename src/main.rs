@@ -30,7 +30,7 @@ fn main() -> Result<(), anyhow::Error> {
         .author("{{authors}}")
         .about("Solution to AoC {{crate_name}}")
         .subcommand(
-            SubCommand::with_name("part 1").about("{{crate_name}} part 1").arg(
+            SubCommand::with_name("part1").about("{{crate_name}} part 1").arg(
                 Arg::with_name("input")
                     .short("i")
                     .long("input")
