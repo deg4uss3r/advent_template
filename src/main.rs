@@ -1,7 +1,7 @@
-use std::{fs::File, io::prelude::*};
+use std::{fmt, fs::File, io::prelude::*};
 
 use anyhow::Context;
-use clap::{App, Arg, SubCommand};
+use clap::{Arg, Command};
 
 fn read_input_file(input_path: &str) -> Result<String, anyhow::Error> {
     let mut file =
@@ -12,70 +12,71 @@ fn read_input_file(input_path: &str) -> Result<String, anyhow::Error> {
     Ok(contents)
 }
 
-fn parse_input(input: &str) -> Result<(), anyhow::Error> {
+fn parse_input(input: &str) -> Result<Vec<Elf>, anyhow::Error> {
     unimplemented!()
 }
 
-fn part_1() -> Result<(), anyhow::Error> {
+fn part_1(elves: Vec<Elf>) -> Result<u32, anyhow::Error> {
     unimplemented!()
 }
 
-//fn part_2() -> Result<(), anyhow::Error> {
-//    unimplemented!()
-//}
+fn part_2(elves: Vec<Elf>) -> Result<u32, anyhow::Error> {
+    unimplemented!()
+}
 
 fn main() -> Result<(), anyhow::Error> {
-    let matches = App::new("AoC 2021: {{crate_name}}")
+    let matches = Command::new("AoC 2022: {{crate_name}}")
         .version("1.0")
-        .author("{{authors}}")
+        .author("Ricky Hosfelt <ricky@hosfe.lt>")
         .about("Solution to AoC {{crate_name}}")
+        .subcommand_required(true)
         .subcommand(
-            SubCommand::with_name("part1").about("{{crate_name}} part 1").arg(
-                Arg::with_name("input")
-                    .short("i")
+            Command::new("part1").about("{{crate_name}} part 1").arg(
+                Arg::new("input")
+                    .short('i')
                     .long("input")
                     .help("/path/to/puzzle.input")
-                    .required(true)
-                    .takes_value(true),
+                    .required(true),
             ),
         )
         .subcommand(
-            SubCommand::with_name("part2").about("{{crate_name}} part 2").arg(
-                Arg::with_name("input")
-                    .short("i")
+            Command::new("part2").about("{{crate_name}} part 2").arg(
+                Arg::new("input")
+                    .short('i')
                     .long("input")
                     .help("/path/to/puzzle.input")
-                    .required(true)
-                    .takes_value(true),
+                    .required(true),
             ),
         )
         .get_matches();
 
-    // {{crate_name}} part_1
-    if let Some(ref matches) = matches.subcommand_matches("part1") {
-        if matches.is_present("input") {
+    // day_1 part_1
+    if let Some(ref commands) = matches.subcommand_matches("part1") {
+        if commands.try_contains_id("input")? {
             let total_inputs = read_input_file(
-                matches
-                    .value_of("input")
+                commands
+                    .get_one::<String>("input")
                     .context("Error no value supplied for --input")?,
             )?;
 
-            println!("{{crate_name}} part 1: {}", part_1(parse_input(&total_inputs)?)?);
+            println!(
+                "{{crate_name}} part 1: {:?}",
+                part_1(parse_input(&total_inputs)?)?
+            );
         }
     }
-/*
-    // {{crate_name}} part_2
-    if let Some(ref matches) = matches.subcommand_matches("part2") {
-        if matches.is_present("input") {
+    // day_1 part_2
+    /*if let Some(ref commands) = matches.subcommand_matches("part2") {
+        if commands.try_contains_id("input")? {
             let total_inputs = read_input_file(
-                matches
-                    .value_of("input")
+                commands
+                    .get_one::<String>("input")
                     .context("Error no value supplied for --input")?,
             )?;
 
-            println!("{{crate_name}} part 2: {}", part_2(parse_input(&total_inputs)?)?);
+            println!("{{crate_name}} part 2: {:?}", part_2(parse_input(&total_inputs)?)?);
         }
-    }
-*/
+    }*/
+
     Ok(())
 }
