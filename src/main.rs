@@ -12,15 +12,15 @@ fn read_input_file(input_path: &str) -> Result<String, anyhow::Error> {
     Ok(contents)
 }
 
-fn parse_input(input: &str) -> Result<Vec<Elf>, anyhow::Error> {
+fn parse_input(input: &str) -> Result<(), anyhow::Error> {
     unimplemented!()
 }
 
-fn part_1(elves: Vec<Elf>) -> Result<u32, anyhow::Error> {
+fn part_1() -> Result<(), anyhow::Error> {
     unimplemented!()
 }
 
-fn part_2(elves: Vec<Elf>) -> Result<u32, anyhow::Error> {
+fn part_2() -> Result<(), anyhow::Error> {
     unimplemented!()
 }
 
@@ -66,7 +66,7 @@ fn main() -> Result<(), anyhow::Error> {
         }
     }
     // day_1 part_2
-    /*if let Some(ref commands) = matches.subcommand_matches("part2") {
+    if let Some(ref commands) = matches.subcommand_matches("part2") {
         if commands.try_contains_id("input")? {
             let total_inputs = read_input_file(
                 commands
@@ -74,9 +74,12 @@ fn main() -> Result<(), anyhow::Error> {
                     .context("Error no value supplied for --input")?,
             )?;
 
-            println!("{{crate_name}} part 2: {:?}", part_2(parse_input(&total_inputs)?)?);
+            println!(
+                "{{crate_name}} part 2: {:?}",
+                part_2(parse_input(&total_inputs)?)?
+            );
         }
-    }*/
+    }
 
     Ok(())
 }
